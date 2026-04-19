@@ -3,9 +3,11 @@ const cors = require("cors");
 
 const app = express();
 app.use(cors());
-app.use(express.json());
 
-// Stats API
+app.get("/", (req, res) => {
+  res.send("Backend running");
+});
+
 app.get("/stats", (req, res) => {
   res.json({
     audits: 140,
@@ -15,18 +17,8 @@ app.get("/stats", (req, res) => {
   });
 });
 
-// Chat API
-app.post("/chat", (req, res) => {
-  const { message } = req.body;
-
-  res.json({
-    reply: `We received: "${message}". Our team will contact you.`
-  });
-});
-
-app.get("/", (_, res) => {
-  res.send("Backend running");
-});
-
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log("Server running"));
+
+app.listen(PORT, () => {
+  console.log("Server running on port " + PORT);
+});
