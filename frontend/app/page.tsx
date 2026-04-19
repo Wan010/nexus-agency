@@ -1,20 +1,30 @@
-import WalletButton from "../components/WalletButton";
-import Stats from "../components/Stats";
-import Chatbot from "../components/Chatbot";
+"use client";
+
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    fetch(process.env.NEXT_PUBLIC_API_URL + "/stats")
+      .then(res => res.json())
+      .then(setData);
+  }, []);
+
   return (
-    <main className="p-10 bg-black text-white min-h-screen">
-      <h1 className="text-5xl font-bold">
-        NEXUS Web3 Agency
-      </h1>
+    <main style={{ padding: "40px" }}>
+      <h1>NEXUS Web3 Agency</h1>
 
-      <div className="mt-6">
-        <WalletButton />
-      </div>
+      {!data && <p>Loading...</p>}
 
-      <Stats />
-      <Chatbot />
+      {data && (
+        <div>
+          <p>Audits: {data.audits}</p>
+          <p>TVL: {data.tvl}</p>
+          <p>Protocols: {data.protocols}</p>
+          <p>Years: {data.years}</p>
+        </div>
+      )}
     </main>
   );
 }
