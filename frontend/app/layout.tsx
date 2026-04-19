@@ -1,15 +1,12 @@
-import "./globals.css";
-import Providers from "./providers";
-
 export const metadata = {
-  title: "NEXUS Web3 Agency"
+  title: "NEXUS"
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>
-        <Providers>{children}</Providers>
+    <html>
+      <body style={{ background: "#0a0a0f", color: "white" }}>
+        {children}
       </body>
     </html>
   );
